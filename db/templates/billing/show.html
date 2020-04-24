@@ -1,0 +1,33 @@
+{% extends "billing/base.html" %}
+{% block title %}
+Show Page Testing
+{% endblock title %}
+{% block body %}
+{{form.as_p}}
+<ul>
+    {% for b in bill %}
+    <li>{{b.invoice}}</li>
+    <li>{{b.buyer}}</li>
+    <li>{{b.seller}}</li>
+    <li>{{b.challan_no}}</li>
+    <li>{{b.buyer_order}}</li>
+    <li>{{b.invoice_date}}</li>
+    <li>{{b.delivery_date}}</li>
+    <li>{{b.order_date}}</li>
+    <li>{{b.notes}}</li>
+    {% endfor %}
+</ul>
+<ul>
+    {% for p in product %}
+    <li>{{p.product}}</li>
+    <li>{{p.quantity}}</li>
+    <li>{{p.rate}}</li>
+    <li>{{p.unit}}</li>
+    <li>{{p.gst}}</li>
+    <li>{{p.discount}}</li>
+    <li>{{p.sub_total}}</li>
+    <li>{{p.total}}</li>
+    <li>{{p.words}}</li>
+    {% endfor %}
+</ul>
+{% endblock body %}

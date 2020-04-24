@@ -1,0 +1,55 @@
+http://127.0.0.1:8000/billing/bill/?invoice=&invoice_dt=&challan=&challan_dt=&order=&order_dt=
+
+
+
+
+
+&product%5B%5D=a
+&qty%5B%5D=10
+&price%5B%5D=10
+&unit%5B%5D=a
+
+
+
+
+
+&total%5B%5D=100&sub_total=500&tax=10&disc=1&tax_amount=50.00&total_amount=545
+
+
+function store(){
+  var p,b,t;
+  var bdata=[];
+  var pdata=[];
+  var tdata=[];
+  b= document.getElementsByClassName("bdata");
+  p= document.getElementsByClassName("pdata");
+  t= document.getElementsByClassName("tdata");
+  var i;
+  for (i = 0; i < b.length; i++) {
+    bdata.push(b[i].value);
+  }
+  for (i = 0; i < p.length; i++) {
+    pdata.push(p[i].value);
+  }
+  for (i = 0; i < t.length; i++) {
+    tdata.push(t[i].value);
+  }
+  console.log(bdata);
+  console.log(pdata);
+  console.log(tdata);
+
+
+  var url;
+  var data = new XMLHttpRequest();
+  url = "/billing/cal;
+  data.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        if(this.responseText=="true"){
+          alert("Success");
+      }
+     
+    }
+  };
+  data.open("GET",url, true);
+  data.send();
+}

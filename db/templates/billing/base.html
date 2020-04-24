@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% load static %}
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Navigation-with-Button.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+        <div class="container"><a class="navbar-brand" href="#">Company Name</a><button data-toggle="collapse"
+                class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
+                    class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav mr-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">First Item</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="#">Second Item</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="#">Third Item</a></li>
+                </ul><span class="navbar-text actions"> <a class="login" href="#">Log In</a><a
+                        class="btn btn-light action-button" role="button" href="#">Sign Up</a></span>
+            </div>
+        </div>
+    </nav>
+    <!-- Navigation BAR -->
+    {% block body %}
+    {% endblock body %}
+    <!-- Footer -->
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/table-to-json@1.0.0/lib/jquery.tabletojson.min.js"
+        integrity="sha256-H8xrCe0tZFi/C2CgxkmiGksqVaxhW0PFcUKZJZo1yNU=" crossorigin="anonymous"></script>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            var i = 1;
+            $("#add_row").click(function () {
+                b = i - 1;
+                $('#addr' + i).html($('#addr' + b).html()).find('td:first-child').html(i + 1);
+                $('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
+                i++;
+            });
+            $("#delete_row").click(function () {
+                if (i > 1) {
+                    $("#addr" + (i - 1)).html('');
+                    i--;
+                }
+                calc();
+            });
+          
+            $('#tab_logic tbody').on('keyup change', function () {
+                calc();
+            });
+            $('#tax').on('keyup change', function () {
+                calc_total();
+            });
+            $('#discount').on('keyup change', function () {
+                calc_total();
+            });
+            $('#inc').on('keyup change', function () {
+                calc_total();
+            });
+            
+            //submit logic
+          
+          });
+          
+          
+          function calc() {
+            $('#tab_logic tbody tr').each(function (i, element) {
+                var html = $(this).html();
+                if (html != '') {
+                    var qty = $(this).find('.qty').val();
+                    var price = $(this).find('.price').val();
+                    $(this).find('.total').val(qty * price);
+                    calc_total();
+                }
+            });
+          
+          }
+          
+          function calc_total() {
+            total = 0;
+            $('.total').each(function () {
+                total += parseInt($(this).val());
+            });
+          
+            var dis = $("#discount").val();
+            $('#sub_total').val(Math.ceil(total));
+            if ($('#inc').prop("checked") == true) {
+                tax_sum = total * ($('#tax').val() / 100);
+                $('#tax_amount').val(tax_sum.toFixed(2));
+                dis = total * (dis / 100);
+                total -= dis;
+                $('#total_amount').val(Math.ceil(total));
+            }
+            else {
+                tax_sum = total / 100 * $('#tax').val();
+                $('#tax_amount').val(tax_sum.toFixed(2));
+                var total = tax_sum + total;
+                dis = total * (dis / 100);
+                total -= dis;
+                $('#total_amount').val(Math.ceil(total));
+            }
+          }
+          
+          function database(){
+            var p,b,t;
+            var bdata=[];
+            var pdata=[];
+            var tdata=[];
+            b= document.getElementsByClassName("bdata");
+            p= document.getElementsByClassName("pdata");
+            t= document.getElementsByClassName("tdata");
+            var i;
+            for (i = 0; i < b.length; i++) {
+              bdata.push(b[i].value);
+            }
+            for (i = 0; i < p.length; i++) {
+              pdata.push(p[i].value);
+            }
+            for (i = 0; i < t.length; i++) {
+              tdata.push(t[i].value);
+            }
+            console.log(bdata);
+            console.log(pdata);
+            console.log(tdata);
+          
+          
+            var url;
+            var data = new XMLHttpRequest();
+            url = '/billing/cal?bdata='+bdata+'&pdata='+pdata+'&tdata='+tdata;
+            data.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                  if(this.responseText=="true"){
+                    alert("Success");
+                }
+               
+              }
+            };
+            data.open("GET",url, true);
+            data.send();
+          }
+          
+          
+    </script>
+</body>
+
+</html>

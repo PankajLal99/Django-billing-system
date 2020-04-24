@@ -1,0 +1,174 @@
+{% extends "billing/base.html" %}
+{% block title %}
+Billing Page
+{% endblock title %}
+{% block body %}
+<div class="container mt-2">
+  <div class="formmade">
+
+    <div class="row">
+      <div class="col">
+
+        <div class=" row input-group col-lg-12 col-sm-6 col-xs-6 p-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Invoice No.</span>
+          </div>
+          <input type="text" name="invoice" class="form-control bdata" placeholder="Invoice No."
+            aria-label="Invoice No." aria-describedby="basic-addon1">
+        </div>
+        <div class=" row input-group col-lg-12 col-sm-6 col-xs-6 p-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Invoice Date</span>
+          </div>
+          <input type="date" name="invoice_dt" class="form-control bdata" aria-describedby="basic-addon1">
+        </div>
+      </div>
+      <div class="col">
+        <div class=" row input-group col-lg-12 col-sm-6 col-xs-6 p-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1 ">Challan No.</span>
+          </div>
+          <input type="text" name="challan" class="form-control bdata" placeholder="Challan No."
+            aria-label="Challan No." aria-describedby="basic-addon1">
+        </div>
+        <div class=" row input-group col-lg-12 col-sm-6 col-xs-6 p-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Challan Date</span>
+          </div>
+          <input type="date" name="challan_dt" class="form-control bdata" aria-describedby="basic-addon1">
+        </div>
+      </div>
+      <div class="col">
+        <div class=" row input-group col-lg-12 col-sm-6 col-xs-6 p-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Order No.</span>
+          </div>
+          <input type="text" name="order" class="form-control bdata" placeholder="Buyer Order No."
+            aria-label="Buyer Order No." aria-describedby="basic-addon1">
+        </div>
+        <div class=" row input-group col-lg-12 col-sm-6 col-xs-6 p-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Order Date</span>
+          </div>
+          <input type="date" name="order_dt" class="form-control bdata" aria-describedby="basic-addon1">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="row input-group mb-3 col-lg-12 col-sm-6 col-xs-6 p-2">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Buyer List</label>
+          </div>
+          <select class="custom-select bdata" id="inputGroupSelect01">
+
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="row input-group col-lg-12 col-sm-6 col-xs-6 p-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Notes</span>
+          </div>
+          <textarea class="form-control bdata" aria-label="With textarea"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix mt-3">
+      <div class="col-md-12 col-sm-12 col-lg-12">
+        <table class="table table-bordered table-hover" id="tab_logic">
+          <thead>
+            <tr>
+              <th class="text-center"> # </th>
+              <th class="text-center"> Product </th>
+              <th class="text-center"> Qty </th>
+              <th class="text-center"> Price </th>
+              <th class="text-center"> Unit </th>
+              <th class="text-center"> Total </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id='addr0'>
+              <td>1</td>
+              <td><input type="text" name='product[]' placeholder='Enter Product Name' class="form-control pdata"></td>
+              <td><input type="number" name='qty[]' placeholder='Enter Qty' class="form-control qty pdata" step="0"
+                  min="0">
+              </td>
+              <td><input type="number" name='price[]' placeholder='Enter Price' class="form-control price pdata"
+                  step="0.00" min="0"></td>
+              <td><input type="text" name='unit[]' placeholder='Enter Unit' class="form-control pdata"></td>
+              <td><input type="number" name='total[]' placeholder='0.00' class="form-control total pdata" readonly></td>
+            </tr>
+            <tr id='addr1'></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row clearfix ">
+      <div class="col-md-12">
+        <button type="button" id="add_row" class="btn btn-success float-right">Add Row</button>
+        <button type="button" id='delete_row' class="float-right mr-2 btn btn-danger">Delete Row</button>
+      </div>
+    </div>
+
+    <div class="row clearfix mt-3 float-right">
+      <div class="col-md-12 col-sm-12 col-lg-12">
+        <table class="table table-bordered table-hover" id="tab_logic_total">
+          <tbody>
+            <tr>
+              <th colspan="2" class="text-center">Sub Total</th>
+
+              <td class="text-center"><input type="number" name='sub_total' placeholder='0.00'
+                  class="form-control tdata" id="sub_total" readonly /></td>
+            </tr>
+            <tr>
+              <th class="text-center">GST</th>
+              <td class="text-center"><b>Inclusive</b><input style="margin-left: 6px;" type="checkbox" name="inclusive"
+                  id="inc"></td>
+              <td class="text-center">
+                <div class="input-group mb-2 mb-sm-0">
+                  <input type="number" name="tax" class="form-control tdata" id="tax" placeholder="0">
+                  <div class="input-group-text">%</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th colspan="2" class="text-center">Discount</th>
+
+              <td class="text-center">
+                <div class="input-group mb-2 mb-sm-0">
+                  <input type="number" name="disc" class="form-control tdata" id="discount" placeholder="0" step="0.1"
+                    min="0" max="90">
+                  <div class="input-group-text">%</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th colspan="2" class="text-center">Tax Amount</th>
+              <td class="text-center"><input type="number" name="tax_amount" id="tax_amount" placeholder='0.00'
+                  class="form-control tdata" readonly /></td>
+            </tr>
+            <tr>
+              <th colspan="2" class="text-center">Grand Total</th>
+              <td class="text-center"><input type="number" name="total_amount" id="total_amount" placeholder='0.00'
+                  class="form-control tdata" readonly /></td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="btn btn-success float-right" onclick="database()" id="submitBt">SUBMIT</button>
+        <div class="form-check float-right mt-2 mr-4">
+          <input class="form-check-input tdata" type="checkbox" value="0" id="defaultCheck1">
+          <label class="form-check-label" for="defaultCheck1">
+            <b>MARK AS PAID</b>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock body %}
