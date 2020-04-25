@@ -5,10 +5,8 @@ Billing Page
 {% block body %}
 <div class="container mt-2">
   <div class="formmade">
-
-    <div class="row">
+    <div class="row ml-3">
       <div class="col">
-
         <div class=" row input-group col-lg-12 col-sm-6 col-xs-6 p-2">
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Invoice No.</span>
@@ -54,17 +52,16 @@ Billing Page
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row ml-3">
       <div class="col">
         <div class="row input-group mb-3 col-lg-12 col-sm-6 col-xs-6 p-2">
           <div class="input-group-prepend">
             <label class="input-group-text" for="inputGroupSelect01">Buyer List</label>
           </div>
           <select class="custom-select bdata" id="inputGroupSelect01">
-
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            {% for key,value in buyer.items %}
+            <option value={{key}}>{{value}}</option>
+            {% endfor %}
           </select>
         </div>
       </div>
@@ -123,7 +120,7 @@ Billing Page
               <th colspan="2" class="text-center">Sub Total</th>
 
               <td class="text-center"><input type="number" name='sub_total' placeholder='0.00'
-                  class="form-control tdata" id="sub_total" readonly /></td>
+                  class="form-control bdata" id="sub_total" readonly /></td>
             </tr>
             <tr>
               <th class="text-center">GST</th>
@@ -131,7 +128,7 @@ Billing Page
                   id="inc"></td>
               <td class="text-center">
                 <div class="input-group mb-2 mb-sm-0">
-                  <input type="number" name="tax" class="form-control tdata" id="tax" placeholder="0">
+                  <input type="number" name="tax" class="form-control bdata" id="tax" placeholder="0">
                   <div class="input-group-text">%</div>
                 </div>
               </td>
@@ -141,7 +138,7 @@ Billing Page
 
               <td class="text-center">
                 <div class="input-group mb-2 mb-sm-0">
-                  <input type="number" name="disc" class="form-control tdata" id="discount" placeholder="0" step="0.1"
+                  <input type="number" name="disc" class="form-control bdata" id="discount" placeholder="0" step="0.1"
                     min="0" max="90">
                   <div class="input-group-text">%</div>
                 </div>
@@ -150,22 +147,22 @@ Billing Page
             <tr>
               <th colspan="2" class="text-center">Tax Amount</th>
               <td class="text-center"><input type="number" name="tax_amount" id="tax_amount" placeholder='0.00'
-                  class="form-control tdata" readonly /></td>
+                  class="form-control bdata" readonly /></td>
             </tr>
             <tr>
               <th colspan="2" class="text-center">Grand Total</th>
               <td class="text-center"><input type="number" name="total_amount" id="total_amount" placeholder='0.00'
-                  class="form-control tdata" readonly /></td>
+                  class="form-control bdata" readonly /></td>
             </tr>
           </tbody>
         </table>
         <button class="btn btn-success float-right" onclick="database()" id="submitBt">SUBMIT</button>
-        <div class="form-check float-right mt-2 mr-4">
-          <input class="form-check-input tdata" type="checkbox" value="0" id="defaultCheck1">
+        <!-- <div class="form-check float-right mt-2 mr-4">
+          <input class="form-check-input bdata" type="checkbox" id="defaultCheck1">
           <label class="form-check-label" for="defaultCheck1">
-            <b>MARK AS PAID</b>
+            <b>MARK AS UNPAID</b>
           </label>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

@@ -80,8 +80,6 @@
             $('#inc').on('keyup change', function () {
                 calc_total();
             });
-            
-            //submit logic
           
           });
           
@@ -123,15 +121,16 @@
                 $('#total_amount').val(Math.ceil(total));
             }
           }
-          
+
+         //submit logic
           function database(){
-            var p,b,t;
+            var p,b;
             var bdata=[];
             var pdata=[];
-            var tdata=[];
+            
             b= document.getElementsByClassName("bdata");
             p= document.getElementsByClassName("pdata");
-            t= document.getElementsByClassName("tdata");
+            
             var i;
             for (i = 0; i < b.length; i++) {
               bdata.push(b[i].value);
@@ -139,21 +138,18 @@
             for (i = 0; i < p.length; i++) {
               pdata.push(p[i].value);
             }
-            for (i = 0; i < t.length; i++) {
-              tdata.push(t[i].value);
-            }
-            console.log(bdata);
-            console.log(pdata);
-            console.log(tdata);
-          
+            
           
             var url;
             var data = new XMLHttpRequest();
-            url = '/billing/cal?bdata='+bdata+'&pdata='+pdata+'&tdata='+tdata;
+            url = '/billing/cal?bdata='+bdata+'&pdata='+pdata;
             data.onreadystatechange = function() {
               if (this.readyState == 4 && this.status == 200) {
                   if(this.responseText=="true"){
-                    alert("Success");
+                    alert("Billling Information Saved");
+                }
+                else{
+                    alert("Failed");
                 }
                
               }
